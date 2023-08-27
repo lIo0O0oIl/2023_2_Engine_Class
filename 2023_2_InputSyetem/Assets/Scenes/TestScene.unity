@@ -157,7 +157,7 @@ MonoBehaviour:
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 691694d9f7d3bb04aadcf55ae7023e0d,
     type: 3}
-  m_SortingOrder: 0
+  m_SortingOrder: 10
 --- !u!4 &212888266
 Transform:
   m_ObjectHideFlags: 0
@@ -490,121 +490,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1477932909 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8019121047220211306, guid: 2b80b2e8e9c0fc44ba4d652417222103,
-    type: 3}
-  m_PrefabInstance: {fileID: 4904007102262873411}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1477932911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1477932909}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32638256d7de932438f932d3c3654b6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moveSpeed: 5
-  _gravity: -9.8
-  _gravityMultiplier: 1
-  _jumpPower: 3
-  MovementVelocity: {x: 0, y: 0, z: 0}
-  _Ground:
-    serializedVersion: 2
-    m_Bits: 0
-  _visual: {fileID: 0}
-  fireBallPrefabs: {fileID: 0}
---- !u!143 &1477932912
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1477932909}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1477932913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1477932909}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab9cdc7927e03e3439c4af8844c8ce7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aimPosition: {x: 0, y: 0}
-  _uiDocument: {fileID: 0}
---- !u!114 &1477932914
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1477932909}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: d2b550e716fcdb449abeb0491140ed78,
-    type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 245b903f-a47b-42da-9d95-b0053b4c1aed
-    m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 22fce4b3-5b3d-443f-a12c-96775684613e
-    m_ActionName: Player/Fire[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 0c58b3ef-7715-4203-ac4c-66074b9cae0e
-    m_ActionName: Player/Aim[/Mouse/position]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 8f871cb2-2ada-4a34-abeb-dd716f90ec20
-    m_ActionName: Player/Jump[/Keyboard/space]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!4 &1477932915 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4005712555879664931, guid: 2b80b2e8e9c0fc44ba4d652417222103,
@@ -906,22 +791,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1958153096}
-    - targetCorrespondingSourceObject: {fileID: 8019121047220211306, guid: 2b80b2e8e9c0fc44ba4d652417222103,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1477932914}
-    - targetCorrespondingSourceObject: {fileID: 8019121047220211306, guid: 2b80b2e8e9c0fc44ba4d652417222103,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1477932913}
-    - targetCorrespondingSourceObject: {fileID: 8019121047220211306, guid: 2b80b2e8e9c0fc44ba4d652417222103,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1477932912}
-    - targetCorrespondingSourceObject: {fileID: 8019121047220211306, guid: 2b80b2e8e9c0fc44ba4d652417222103,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1477932911}
   m_SourcePrefab: {fileID: 100100000, guid: 2b80b2e8e9c0fc44ba4d652417222103, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

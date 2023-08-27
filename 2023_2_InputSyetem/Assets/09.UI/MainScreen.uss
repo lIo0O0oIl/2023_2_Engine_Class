@@ -1,14 +1,3 @@
-#MenuBox {
-    visibility: hidden;
-    opacity: 0;
-    width: 450px;
-}
-
-#MenuBox.open {
-    visibility: visible;
-    opacity: 1;
-}
-
 .binding-box {
     flex-direction: row;
 }
@@ -26,4 +15,14 @@
     font-size: 20px;
     -unity-font-style: bold;
     flex-grow: 1;
+}
+
+#MenuBox.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+#MenuBox {
+    visibility: hidden;
+    opacity: 0;
 }

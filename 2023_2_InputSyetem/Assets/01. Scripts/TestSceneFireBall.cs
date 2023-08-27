@@ -15,6 +15,8 @@ public class TestSceneFireBall : MonoBehaviour
     public void Fire(Vector3 dir)
     {
         _rigidbody.AddForce(dir, ForceMode.Impulse);
+        // 순간적인 힘을 물체에 즉시 적용시켜 가속함
+        //Destroy(gameObject, 2f);
         StartCoroutine(DestroyCoroutine());
     }
 

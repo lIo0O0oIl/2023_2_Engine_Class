@@ -18,7 +18,9 @@ public class PlayerFire : MonoBehaviour
 
     private void FireHandle()
     {
-        TestSceneFireBall ball = Instantiate(_ballPrefab, _firePos.position, Quaternion.identity);
+        //TestSceneFireBall ball = Instantiate(_ballPrefab, _firePos.position, Quaternion.identity);
+        TestSceneFireBall ball = Instantiate(_ballPrefab, transform.position, Quaternion.identity);
+        //Debug.Log(_firePos.forward);
         ball.Fire(_firePos.forward * 20f);
     }
 }
