@@ -78,19 +78,25 @@ public class UIController : MonoBehaviour
 
     private void HandleKeyBindClick(ClickEvent evt)
     {
+        //Debug.Log(evt.target);
         var label = evt.target as UILabelWithData;
-        if (label == null) return;
+        if (label == null)
+        {
+            Debug.Log("label이 형변환이 안되서(?) 널임");
+            return;
+        }
 
         var oldText = label.text;
         label.text = "Listening...";
-        if (_inputMap.TryGetValue(label.KeyData, out InputAction action))
+        if (_inputMap.TryGetValue(label.KeyData, out InputAction action))       // 아 이걸 인덱스 데이터도 해서 하면 될 거 같은디
         {
+            Debug.Log($"트라이겟벨류 성공 {label.KeyData}");
             var quene = action.PerformInteractiveRebinding();
             if (label.KeyData != "Fire")
             {
                 quene = quene.WithControlsExcluding("Mouse");       // 키가 지금 파이어가 아닐 경우엔 마우스 컨트롤을 제외한 것만 받아온다. 마우스 입력이 되어도 캔슬은 되지 않음
             }
-            quene.WithTargetBinding(label.IndexData)
+            quene.WithTargetBinding(label.IndexData)        // 바인딩 식별자 제공. 아 어렵다아
                 .WithCancelingThrough("<keyboard>/escape")      // esc 누르면 캔슬
                 .OnComplete(op =>       // 바인딩 성공
                 {

@@ -11,19 +11,19 @@
             </ui:VisualElement>
             <ui:VisualElement name="BindingBox" class="binding-box">
                 <ui:Label tabindex="-1" text="Move Up" parse-escape-sequences="true" display-tooltip-when-elided="true" name="KeyName" class="name" />
-                <UILabelWithData tabindex="-1" text="w" key-data="Movement.Up" class="label" />
+                <UILabelWithData tabindex="-1" text="w" key-data="Movement" class="label" />
             </ui:VisualElement>
             <ui:VisualElement name="BindingBox" class="binding-box">
                 <ui:Label tabindex="-1" text="Move Down" parse-escape-sequences="true" display-tooltip-when-elided="true" name="KeyName" class="name" />
-                <ui:Label tabindex="-1" text="s" parse-escape-sequences="true" display-tooltip-when-elided="true" name="KeyLabel" class="label" style="flex-grow: 1;" />
+                <UILabelWithData tabindex="-1" text="s" key-data="Movement" index-data="1" class="label" />
             </ui:VisualElement>
             <ui:VisualElement name="BindingBox" class="binding-box">
                 <ui:Label tabindex="-1" text="Move Left" parse-escape-sequences="true" display-tooltip-when-elided="true" name="KeyName" class="name" />
-                <ui:Label tabindex="-1" text="a" parse-escape-sequences="true" display-tooltip-when-elided="true" name="KeyLabel" class="label" style="flex-grow: 1;" />
+                <UILabelWithData tabindex="-1" text="a" key-data="Movement" index-data="2" class="label" />
             </ui:VisualElement>
             <ui:VisualElement name="BindingBox" class="binding-box">
                 <ui:Label tabindex="-1" text="Move Right" parse-escape-sequences="true" display-tooltip-when-elided="true" name="KeyName" class="name" />
-                <ui:Label tabindex="-1" text="d" parse-escape-sequences="true" display-tooltip-when-elided="true" name="KeyLabel" class="label" style="flex-grow: 1;" />
+                <UILabelWithData tabindex="-1" text="d" index-data="3" key-data="Movement" class="label" />
             </ui:VisualElement>
             <ui:VisualElement name="BindingBox" class="binding-box">
                 <ui:Label tabindex="-1" text="Fire" parse-escape-sequences="true" display-tooltip-when-elided="true" name="KeyName" class="name" />
