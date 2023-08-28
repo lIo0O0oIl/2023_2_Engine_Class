@@ -17,11 +17,6 @@ public class UIController : MonoBehaviour
     {
         _uiDocument = GetComponent<UIDocument>();
 
-        // 바인딩 데이터 불러오기 불러오면서 애들 바꿔주기도 해야함
-        //if (PlayerPrefs.HasKey("bindInfo"))
-        //{
-        //    _playerAction.InputAction.LoadBindingOverridesFromJson(PlayerPrefs.GetString("bindInfo"));
-        //}
     }
 
     private void Start()
@@ -32,6 +27,13 @@ public class UIController : MonoBehaviour
         _inputMap.Add("Movement", _playerAction.InputAction.Player.Movement);
 
         //OpenWindow();
+
+        // 바인딩 데이터 불러오기 불러오면서 애들 바꿔주기도 해야함
+        if (PlayerPrefs.HasKey("bindInfo"))
+        {
+            Debug.Log("데이터 불러옴");
+            _playerAction.InputAction.LoadBindingOverridesFromJson(PlayerPrefs.GetString("bindInfo"));
+        }
     }
 
     private void OnEnable()
@@ -155,13 +157,17 @@ public class UIController : MonoBehaviour
         Debug.Log("닫음");
 
         // 바인딩 하기 전으로 돌아가게 만들어야 함
+        _playerAction.InputAction.LoadBindingOverridesFromJson(PlayerPrefs.GetString("bindInfo"));
     }
 
     private void KeySave()
     {
-        //Debug.Log("제이슨 저장해줘야해, PlayerPrefs 사용해서!");
-        //var rebindInfo = _playerAction.InputAction.SaveBindingOverridesAsJson();
-        //PlayerPrefs.SetString("bindInfo", rebindInfo);
-        //_playerAction.InputAction.LoadBindingOverridesFromJson(rebindInfo);
+        Debug.Log("제이슨 저장, PlayerPrefs 사용해서!");
+        var rebindInfo = _playerAction.InputAction.SaveBindingOverridesAsJson();
+        PlayerPrefs.SetString("bindInfo", rebindInfo);
+        //Debug.Log(PlayerPrefs.GetString("bindInfo"));
+        //Debug.Log(rebindInfo);
+       // _playerAction.InputAction.LoadBindingOverridesFromJson(rebindInfo);
+        _playerAction.InputAction.LoadBindingOverridesFromJson(PlayerPrefs.GetString("bindInfo"));
     }
 }
