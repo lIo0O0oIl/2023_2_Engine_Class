@@ -20,6 +20,7 @@ public class ChaseNode : Node
     public override NodeState Evaluate()
     {
         float distance = Vector3.Distance(_target.position, _agent.transform.position);
+
         if (distance > 0.2f)
         {
             _agent.isStopped = false;

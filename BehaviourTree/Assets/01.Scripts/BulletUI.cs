@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class BulletUI : MonoBehaviour
+public class BulletUI
 {
     private int _currentCnt;
     private int _maxCnt;

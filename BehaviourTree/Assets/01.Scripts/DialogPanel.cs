@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class DialogPanel : MonoBehaviour
+public class DialogPanel
 {
     private Label _label;
     public string Text
