@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 150214165}
   - component: {fileID: 150214170}
   - component: {fileID: 150214169}
+  - component: {fileID: 150214171}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -269,6 +270,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetTrm: {fileID: 1611388079}
+  currentCode: 0
+--- !u!114 &150214171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150214164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc886ad5a9b7abd4bb7cab3715bd285a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 5068330933037699108, guid: 742385930cd241e4db7efbef2551d8c2, type: 3}
+  _firePos: {fileID: 206917027}
+  _firePower: 30
 --- !u!1 &176791703
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,6 +298,7 @@ GameObject:
   - component: {fileID: 176791706}
   - component: {fileID: 176791705}
   - component: {fileID: 176791704}
+  - component: {fileID: 176791708}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -375,6 +393,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1481719690}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &176791708
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176791703}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 10, y: 2.220446e-16, z: 10}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &206917026
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,7 +439,7 @@ Transform:
   m_GameObject: {fileID: 206917026}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.567}
+  m_LocalPosition: {x: 0, y: 0, z: 1.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -614,6 +653,7 @@ GameObject:
   - component: {fileID: 1367471006}
   - component: {fileID: 1367471005}
   - component: {fileID: 1367471004}
+  - component: {fileID: 1367471007}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -708,6 +748,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1367471002}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1367471007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367471002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58e0534954a9d32488e64d6ed5fdf6f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalAmmo: 50
+  maxAmmo: 8
+  currentAmmo: 0
 --- !u!1 &1481719688
 GameObject:
   m_ObjectHideFlags: 0
@@ -805,7 +860,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 6d4318749b9726b4d97acaa9cc6c88a7, type: 2}
+  sharedProfile: {fileID: 11400000, guid: a6560a915ef98420e9faacc1c7438823, type: 2}
 --- !u!4 &1497790175
 Transform:
   m_ObjectHideFlags: 0
