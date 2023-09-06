@@ -19,5 +19,12 @@ public class FOVEditor : Editor
 
         Handles.DrawLine(pos, pos + viewAngleA * pFov.viewRadius);
         Handles.DrawLine(pos, pos + viewAngleB * pFov.viewRadius);
+
+        Handles.color = Color.red;
+
+        foreach (var trm in pFov.visibleTargets)
+        {
+            Handles.DrawLine(pos, trm.position);
+        }
     }
 }
