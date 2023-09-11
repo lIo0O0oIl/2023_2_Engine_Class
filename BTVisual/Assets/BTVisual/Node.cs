@@ -12,8 +12,10 @@ namespace BTVisual
             FAILURE,
             SUCCESS
         }
-        public State state = State.RUNNING;
-        public bool started = false;
+        [HideInInspector] public State state = State.RUNNING;
+        [HideInInspector] public bool started = false;
+        [HideInInspector] public string guid;
+        [HideInInspector] public Vector2 position;
 
         public State Update()       // 업데이트 할 때마다 갱신됨
         {
