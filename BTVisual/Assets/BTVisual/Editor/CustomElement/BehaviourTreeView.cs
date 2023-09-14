@@ -27,6 +27,14 @@ namespace BTVisual
             this.AddManipulator(new ContentDragger());  // 컨탠츠 드래그 가능
             this.AddManipulator(new SelectionDragger());    // 선택해준거 움직이기
             this.AddManipulator(new RectangleSelector());   // 네모 만들어주기
+
+            Undo.undoRedoPerformed += OnUndoRedoHandle;
+        }
+
+        private void OnUndoRedoHandle()
+        {
+            PopulateView(_tree);
+            AssetDatabase.SaveAssets();
         }
 
         public void PopulateView(BehaviourTree tree)
@@ -40,7 +48,7 @@ namespace BTVisual
 
             if (_tree.rootNode == null)     // 없으면 자동으로 만들어주기
             {
-                _tree.rootNode = CreateNode(typeof(RootNode)) as RootNode;
+                _tree.rootNode = tree.CreateNode(typeof(RootNode)) as RootNode;
                 EditorUtility.SetDirty(_tree);      // 에디터에서 다시 그려
                 AssetDatabase.SaveAssets();
             }
@@ -111,11 +119,10 @@ namespace BTVisual
             AddElement(nv);
         }
 
-        private Node CreateNode(Type t)     // 노드 만들기
+        private void CreateNode(Type t)     // 노드 만들기
         {
             Node node = _tree.CreateNode(t);
             CreateNodeView(node);
-            return node;
         }
 
         public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)       // 우클릭 했을 때 나오는 메뉴들

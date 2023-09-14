@@ -17,6 +17,11 @@ namespace BTVisual
         [HideInInspector] public string guid;
         [HideInInspector] public Vector2 position;
 
+        public virtual Node Clone()
+        {
+            return Instantiate(this);
+        }
+
         public State Update()       // 업데이트 할 때마다 갱신됨
         {
             if (!started)

@@ -6,11 +6,15 @@ namespace BTVisual
 {
     public class BehaviourTreeRunner : MonoBehaviour
     {
-        private BehaviourTree _tree;
+        public BehaviourTree tree;
 
         private void Start()
         {
-            _tree = ScriptableObject.CreateInstance<BehaviourTree>();
+            tree = tree.Clone();        // 클론을 떠서 넣음
+
+
+
+            //_tree = ScriptableObject.CreateInstance<BehaviourTree>();
 
             //var dNode1 = ScriptableObject.CreateInstance<DebugNode>();
             //dNode1.message = "GGM Message!";
@@ -21,7 +25,7 @@ namespace BTVisual
             //_tree.rootNode = rNode;
 
 
-            var wait1 = ScriptableObject.CreateInstance<WaitNode>();
+            /*var wait1 = ScriptableObject.CreateInstance<WaitNode>();
             wait1.duration = 1;
             var debug1 = ScriptableObject.CreateInstance<DebugNode>();
             debug1.message = "Hello GGM1";
@@ -40,13 +44,13 @@ namespace BTVisual
             var repeatNode = ScriptableObject.CreateInstance<RepeatNode>();
             repeatNode.child = seq;
 
-            _tree.rootNode = repeatNode;
+            _tree.rootNode = repeatNode;*/
 
         }
 
         private void Update()
         {
-            _tree.Update();
+            tree.Update();
         }
     }
 }

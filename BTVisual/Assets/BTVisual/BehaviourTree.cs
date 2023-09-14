@@ -23,14 +23,18 @@ namespace BTVisual
             return treeState;
         }
 
+#if UNITY_EDITOR
         public Node CreateNode(System.Type type)
         {
             var node = ScriptableObject.CreateInstance(type) as Node;
             node.name = type.Name;
             node.guid = GUID.Generate().ToString();
+
+            Undo.RecordObject(this, "BT(CreateNode)");
             nodes.Add(node);     // 만들어진 노트를 리스트에 넣는다.
 
             AssetDatabase.AddObjectToAsset(node, this);
+            Undo.RegisterCreatedObjectUndo(node, "BT(CreateNode)");
             AssetDatabase.SaveAssets();
 
             return node;
@@ -38,10 +42,13 @@ namespace BTVisual
 
         public void DeleteNode(Node node)
         {
+            Undo.RecordObject(this, "BT(DeleteNode)");
             nodes.Remove(node);
-            AssetDatabase.RemoveObjectFromAsset(node);
+            //AssetDatabase.RemoveObjectFromAsset(node);
+            Undo.DestroyObjectImmediate(node);
             AssetDatabase.SaveAssets();
         }
+#endif
 
         public void AddChild(Node parent, Node child)
         {
@@ -49,21 +56,27 @@ namespace BTVisual
             var decorator = parent as DecoratorNode;
             if (decorator != null)
             {
+                Undo.RecordObject(decorator, "BT(AddChild)");
                 decorator.child = child;
+                EditorUtility.SetDirty(decorator);
                 return;
             }
 
             var composite = parent as CompositeNode;
             if (composite != null)
             {
+                Undo.RecordObject(decorator, "BT(AddChild)");
                 composite.children.Add(child);
+                EditorUtility.SetDirty(composite);
                 return;
             }
 
             var rootNode = parent as RootNode;
             if (rootNode != null)
             {
+                Undo.RecordObject(decorator, "BT(AddChild)");
                 rootNode.child = child;
+                EditorUtility.SetDirty(rootNode);
             }
 
             // 다른 경우는 자식이 없기에 없음
@@ -74,21 +87,28 @@ namespace BTVisual
             var decorator = parent as DecoratorNode;
             if (decorator != null)
             {
+                Undo.RecordObject(decorator, "BT(RemoveChild)");
                 decorator.child = null;
+                EditorUtility.SetDirty(decorator);
+
                 return;
             }
 
             var composite = parent as CompositeNode;
             if (composite != null)
             {
+                Undo.RecordObject(decorator, "BT(RemoveChild)");
                 composite.children.Remove(child);
+                EditorUtility.SetDirty(composite);
                 return;
             }
 
             var rootNode = parent as RootNode;
             if (rootNode != null)
             {
+                Undo.RecordObject(decorator, "BT(RemoveChild)");
                 rootNode.child = null;
+                EditorUtility.SetDirty(rootNode);
                 return;
             }
         }
@@ -116,6 +136,30 @@ namespace BTVisual
             }
 
             return children;
+        }
+
+        public void Traverse(Node node, System.Action<Node> visitor)
+        {
+            if (node)
+            {
+                visitor.Invoke(node);
+                var children = GetChildren(node);
+                children.ForEach(n => Traverse(n, visitor));
+            }
+        }
+
+        public BehaviourTree Clone()
+        {
+            var tree = Instantiate(this);
+            tree.rootNode = tree.rootNode.Clone();
+
+            tree.nodes = new List<Node>();
+
+            Traverse(tree.rootNode, n =>
+            {
+                tree.nodes.Add(n);
+            });
+            return tree;
         }
     }
 }
