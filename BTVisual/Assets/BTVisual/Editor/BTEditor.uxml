@@ -2,8 +2,16 @@
     <Style src="project://database/Assets/BTVisual/Editor/BTEditor.uss?fileID=7433441132597879392&amp;guid=e5af76cfd0ba1bb40961c354383f3751&amp;type=3#BTEditor" />
     <BTVisual.SplitView fixed-pane-initial-dimension="300">
         <ui:VisualElement name="left-panel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
-            <ui:Label tabindex="-1" text="Inspector" display-tooltip-when-elided="true" class="title-label" />
-            <BTVisual.InspectorView name="inspector-view" />
+            <BTVisual.SplitView orientation="Vertical" fixed-pane-initial-dimension="250">
+                <ui:VisualElement name="inspector-container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+                    <ui:Label tabindex="-1" text="Inspector" display-tooltip-when-elided="true" class="title-label" />
+                    <BTVisual.InspectorView name="inspector-view" />
+                </ui:VisualElement>
+                <ui:VisualElement name="blackboard-container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+                    <ui:Label tabindex="-1" text="BlackBoard" display-tooltip-when-elided="true" name="blackboard-label" class="title-label" />
+                    <ui:IMGUIContainer name="blackboard" style="flex-grow: 1;" />
+                </ui:VisualElement>
+            </BTVisual.SplitView>
         </ui:VisualElement>
         <ui:VisualElement name="right-panel" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
             <ui:Label tabindex="-1" text="TreeView" display-tooltip-when-elided="true" class="title-label" />

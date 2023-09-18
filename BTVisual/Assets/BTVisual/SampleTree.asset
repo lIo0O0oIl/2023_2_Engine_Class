@@ -16,6 +16,15 @@ MonoBehaviour:
   started: 0
   guid: 5b336183361ab1a41a9c0aa79a3e1cb8
   position: {x: 95.00003, y: -120.86687}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    lastSpotPosition: {x: 0, y: 0}
+    whatIsEnemy:
+      serializedVersion: 2
+      m_Bits: 0
+    testGame: {fileID: 0}
+  brain: {fileID: 0}
+  description: "\uB8E8\uD2B8\uC785\uB2C8\uB2E4."
   child: {fileID: -4278502418715673919}
 --- !u!114 &-6410772933703334961
 MonoBehaviour:
@@ -33,6 +42,15 @@ MonoBehaviour:
   started: 0
   guid: 2014acb4d1cbbdd48b3f693f605081b6
   position: {x: -71, y: 69}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    lastSpotPosition: {x: 0, y: 0}
+    whatIsEnemy:
+      serializedVersion: 2
+      m_Bits: 0
+    testGame: {fileID: 0}
+  brain: {fileID: 0}
+  description: 
   child: {fileID: -4278502418715673919}
 --- !u!114 &-5774070141781390684
 MonoBehaviour:
@@ -49,7 +67,16 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: c16f5c46cc82c674abc67182965f29d4
-  position: {x: -8.181091, y: 303.56662}
+  position: {x: 6, y: 316}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    lastSpotPosition: {x: 0, y: 0}
+    whatIsEnemy:
+      serializedVersion: 2
+      m_Bits: 0
+    testGame: {fileID: 0}
+  brain: {fileID: 0}
+  description: 
   message: "\uB514\uBC84\uADF8 \uBA54\uC2DC\uC9C0"
 --- !u!114 &-5622489056271528171
 MonoBehaviour:
@@ -67,9 +94,18 @@ MonoBehaviour:
   started: 0
   guid: c76f2a32b7a1494448ed0bbecc86a9a5
   position: {x: 95, y: 147}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    lastSpotPosition: {x: 0, y: 0}
+    whatIsEnemy:
+      serializedVersion: 2
+      m_Bits: 0
+    testGame: {fileID: 0}
+  brain: {fileID: 0}
+  description: 
   children:
-  - {fileID: -5317949155482458389}
   - {fileID: -5774070141781390684}
+  - {fileID: -5317949155482458389}
   _current: 0
 --- !u!114 &-5317949155482458389
 MonoBehaviour:
@@ -86,7 +122,16 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 73939c9b8d6d786479e0eac173a8f258
-  position: {x: 209.99997, y: 316.1969}
+  position: {x: 186.24005, y: 307}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    lastSpotPosition: {x: 0, y: 0}
+    whatIsEnemy:
+      serializedVersion: 2
+      m_Bits: 0
+    testGame: {fileID: 0}
+  brain: {fileID: 0}
+  description: 
   duration: 1
 --- !u!114 &-4278502418715673919
 MonoBehaviour:
@@ -104,6 +149,15 @@ MonoBehaviour:
   started: 0
   guid: 8366e4c37a519f44d9f5dba508687137
   position: {x: 95.00003, y: 8.958248}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    lastSpotPosition: {x: 0, y: 0}
+    whatIsEnemy:
+      serializedVersion: 2
+      m_Bits: 0
+    testGame: {fileID: 0}
+  brain: {fileID: 0}
+  description: 
   child: {fileID: -5622489056271528171}
 --- !u!114 &-3861268950459005039
 MonoBehaviour:
@@ -121,6 +175,15 @@ MonoBehaviour:
   started: 0
   guid: acc55b8cc3e6b0649a1614b11fac2e7a
   position: {x: 0, y: 0}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    lastSpotPosition: {x: 0, y: 0}
+    whatIsEnemy:
+      serializedVersion: 2
+      m_Bits: 0
+    testGame: {fileID: 0}
+  brain: {fileID: 0}
+  description: 
   duration: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -136,6 +199,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rootNode: {fileID: -7432938374019667347}
   treeState: 0
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    lastSpotPosition: {x: 0, y: 0}
+    whatIsEnemy:
+      serializedVersion: 2
+      m_Bits: 0
+    testGame: {fileID: 0}
   nodes:
   - {fileID: -5622489056271528171}
   - {fileID: -5774070141781390684}
@@ -158,4 +228,13 @@ MonoBehaviour:
   started: 0
   guid: 821031fb05476534b86da4bebff3aec2
   position: {x: 0, y: 0}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    lastSpotPosition: {x: 0, y: 0}
+    whatIsEnemy:
+      serializedVersion: 2
+      m_Bits: 0
+    testGame: {fileID: 0}
+  brain: {fileID: 0}
+  description: 
   message: 

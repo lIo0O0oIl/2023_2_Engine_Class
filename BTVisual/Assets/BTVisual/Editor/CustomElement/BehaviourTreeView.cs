@@ -106,6 +106,16 @@ namespace BTVisual
                     NodeView child = edge.input.node as NodeView;
 
                     _tree.AddChild(parent.node, child.node);
+                    parent?.SortChildren();
+                });
+            }
+
+            if (graphViewChange.movedElements != null)      // 움직일 때마다 정렬
+            {
+                nodes.ForEach(n => 
+                {
+                    var view = n as NodeView;
+                    view?.SortChildren();
                 });
             }
 
@@ -119,9 +129,10 @@ namespace BTVisual
             AddElement(nv);
         }
 
-        private void CreateNode(Type t)     // 노드 만들기
+        private void CreateNode(Type t, Vector2 position)     // 노드 만들기
         {
             Node node = _tree.CreateNode(t);
+            node.position = position;
             CreateNodeView(node);
         }
 
@@ -133,11 +144,13 @@ namespace BTVisual
                 return;
             }
 
+            Vector2 nodePosition = this.ChangeCoordinatesTo(contentViewContainer, evt.localMousePosition);      // 저 안에서의 마우스 포지션으로 바꿔진 좌표가 나온다?
+            
             {
                 var types = TypeCache.GetTypesDerivedFrom<ActionNode>();    // 상속받은 모든 타입을 가져오기
                 foreach (var t in types)
                 {
-                    evt.menu.AppendAction($"[{t.BaseType.Name}] / {t.Name}", (a) => { CreateNode(t); });
+                    evt.menu.AppendAction($"[{t.BaseType.Name}] / {t.Name}", (a) => { CreateNode(t, nodePosition); });
                 }
             }
 
@@ -145,7 +158,7 @@ namespace BTVisual
                 var types = TypeCache.GetTypesDerivedFrom<CompositeNode>();    // 상속받은 모든 타입을 가져오기
                 foreach (var t in types)
                 {
-                    evt.menu.AppendAction($"[{t.BaseType.Name}] / {t.Name}", (a) => { CreateNode(t); });
+                    evt.menu.AppendAction($"[{t.BaseType.Name}] / {t.Name}", (a) => { CreateNode(t, nodePosition); });
                 }
             }
 
@@ -153,7 +166,7 @@ namespace BTVisual
                 var types = TypeCache.GetTypesDerivedFrom<DecoratorNode>();    // 상속받은 모든 타입을 가져오기
                 foreach (var t in types)
                 {
-                    evt.menu.AppendAction($"[{t.BaseType.Name}] / {t.Name}", (a) => { CreateNode(t); });
+                    evt.menu.AppendAction($"[{t.BaseType.Name}] / {t.Name}", (a) => { CreateNode(t, nodePosition); });
                 }
             }
         }
@@ -162,6 +175,15 @@ namespace BTVisual
         public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
         {
             return ports.ToList().Where(x => x.direction != startPort.direction && x.node != startPort.node).ToList();      // 방향이 다르고 나랑 똑같은게 아닌
+        }
+
+        public void UpdateNodeState()
+        {
+            nodes.ForEach(n =>
+            {
+                var nodeView = n as NodeView;
+                nodeView?.UpdateState();
+            });
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -30,6 +31,10 @@ namespace BTVisual
             CreateInputPorts();
             CreateOutputPorts();
             SetUpClasses();
+
+            Label descLabel = this.Q<Label>("description");
+            descLabel.bindingPath = "description";
+            descLabel.Bind(new SerializedObject(node));         // 같이하라고 바인딩 시켜버림
         }
 
         private void CreateInputPorts()
@@ -118,5 +123,45 @@ namespace BTVisual
                 AddToClassList("root");
             }
         }
+
+        // 자식들을 정렬하는 기준
+        public void SortChildren()
+        {
+            var composite = node as CompositeNode;
+            if (composite != null)
+            {
+                composite.children.Sort(
+                    (left, right) => left.position.x < right.position.x ? -1 : 1);
+            }
+        }
+
+        // 구동중일 때 노드의 뷰 상태를 변경하는 것
+        public void UpdateState()
+        {
+            if (Application.isPlaying)
+            {
+                RemoveFromClassList("running");
+                RemoveFromClassList("failure");
+                RemoveFromClassList("success");
+                switch (node.state)
+                {
+                    case Node.State.RUNNING:
+                        if (node.started)
+                        {
+                            AddToClassList("running");
+                        }
+                        break;
+                    case Node.State.FAILURE:
+                        AddToClassList("failure");
+                        break;
+                    case Node.State.SUCCESS:
+                        AddToClassList("success");
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
     }
 }

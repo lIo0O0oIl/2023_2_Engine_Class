@@ -13,6 +13,10 @@ public class BTEditor : EditorWindow
     private BehaviourTreeView _treeView;
     private InspectorView _inspectorView;
 
+    private IMGUIContainer _blackboardView;
+    private SerializedObject _treeObject;
+    private SerializedProperty _blackboardProp;
+
     [MenuItem("Window/BTEditor")]
     public static void OpenWindow()
     {
@@ -31,6 +35,34 @@ public class BTEditor : EditorWindow
         return false;
     }
 
+    private void OnEnable()
+    {
+        EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+        EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+    }
+
+    private void OnDisable()
+    {
+        EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+    }
+
+    private void OnPlayModeStateChanged(PlayModeStateChange state)
+    {
+        switch (state)
+        {
+            case PlayModeStateChange.EnteredEditMode:
+                OnSelectionChange();
+                break;
+            case PlayModeStateChange.ExitingEditMode:
+                break;
+            case PlayModeStateChange.EnteredPlayMode:
+                OnSelectionChange();
+                break;
+            case PlayModeStateChange.ExitingPlayMode:
+                break;
+        }
+    }
+
     public void CreateGUI()
     {
         // Each editor window contains a root VisualElement object
@@ -46,6 +78,17 @@ public class BTEditor : EditorWindow
 
         _treeView = root.Q<BehaviourTreeView>("tree-view");
         _inspectorView = root.Q<InspectorView>("inspector-view");
+        _blackboardView = root.Q<IMGUIContainer>("blackboard");
+        _blackboardView.onGUIHandler = () =>
+        {
+            if (_treeObject != null && _treeObject.targetObject != null)
+            {
+                _treeObject.Update();       // 갱신하고
+                EditorGUILayout.PropertyField(_blackboardProp);
+                // 이걸 해줘야 원본 데이터도 같이 수정된다. 
+                _treeObject.ApplyModifiedProperties();
+            }
+        };
 
         _treeView.OnNodeSelected += OnSelectionNodeChanged;
 
@@ -61,9 +104,44 @@ public class BTEditor : EditorWindow
     {
         var tree = Selection.activeObject as BehaviourTree;
 
-        if (tree != null && AssetDatabase.CanOpenAssetInEditor(tree.GetInstanceID()) )
+        if (tree == null)       // 만약 선택된게 BT 는 아니였지만 GameObject 라면 좀 다르게 동작하기
         {
-            _treeView.PopulateView(tree);
+            if (Selection.activeGameObject)     // 선택된게 게임오브젝트이다.
+            {
+                var runner = Selection.activeGameObject.GetComponent<BehaviourTreeRunner>();
+                if (runner != null)
+                {
+                    tree = runner.tree;     // 구동중인 러너를 넣어서
+                }
+            }
         }
+
+        if (Application.isPlaying)
+        {
+            if (tree != null)
+            {
+                _treeView?.PopulateView(tree);
+            }
+        }
+        else
+        {
+            if (tree != null && AssetDatabase.CanOpenAssetInEditor(tree.GetInstanceID()) )
+            {
+                _treeView.PopulateView(tree);
+            }
+        }
+
+        if (tree != null)
+        {
+            _treeObject = new SerializedObject(tree);
+            Debug.Log(_treeObject);
+            _blackboardProp = _treeObject.FindProperty("blackboard");       // 트리의 멤버변수를 가져온다.
+            Debug.Log(_blackboardProp);
+        }
+    }
+
+    private void OnInspectorUpdate()
+    {
+        _treeView?.UpdateNodeState();
     }
 }
