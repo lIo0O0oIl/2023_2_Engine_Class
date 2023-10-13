@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _mainCam = Camera.main;
         _characterController = GetComponent<CharacterController>();
+        _animator = GetComponent<PlayerAnimator>();
         _inputReader.MovementEvent += SetMovement;
         _inputReader.JumpEvent += Jump;
     }
@@ -79,5 +80,40 @@ public class PlayerMovement : MonoBehaviour
         Quaternion lookRotOnlyY = Quaternion.Euler(rot.eulerAngles.x, lookRot.eulerAngles.y, rot.eulerAngles.z);
 
         target.rotation = Quaternion.Slerp(rot, lookRotOnlyY, _desiredRotationSpeed);
+    }
+
+    private void ApplyGravity()     // 중력적용
+    {
+        if (_characterController.isGrounded && _verticalVelocity < 0)
+        {
+            _verticalVelocity = -1f;
+        }
+        else
+        {
+            _verticalVelocity += _gravity * Time.fixedDeltaTime;
+        }
+
+        _movementVelocity.y = _verticalVelocity;
+    }
+
+    private void Move()
+    {
+        _characterController.Move(_movementVelocity);
+    }
+
+    public void ApplyAnimation()
+    {
+        _animator.SetShooting(blockRotationPlayer);
+        float speed = _inputDirection.sqrMagnitude;
+        _animator.SetBlendValue(speed);
+        _animator.SetXY(_inputDirection);
+    }
+
+    private void FixedUpdate()
+    {
+        ApplyAnimation();
+        CalculatePlayerMovement();
+        ApplyGravity();
+        Move();
     }
 }
