@@ -49,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
     // 키보드 입력을 받아서 inputDriection 에 넣었다.
     private void SetMovement(Vector2 value)
     {
+        //Debug.Log(value);
         _inputDirection = value;
     }
 
