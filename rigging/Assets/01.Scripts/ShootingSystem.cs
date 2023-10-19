@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CinemachineImpulseSource))]
 public class ShootingSystem : MonoBehaviour
 {
     [SerializeField] private InputReader _inputReader;
@@ -21,6 +22,7 @@ public class ShootingSystem : MonoBehaviour
     {
         _movement = GetComponent<PlayerMovement>();
         _impulseSource = GetComponent<CinemachineImpulseSource>();
+        Debug.Log(_impulseSource);
         _inputReader.FireEvent += OnHandleFire;
     }
 
@@ -55,6 +57,7 @@ public class ShootingSystem : MonoBehaviour
             _parentTrm.DOLocalMove(localPos - new Vector3(0, 0, 0.2f), 0.03f)
                 .OnComplete(() => _parentTrm.DOLocalMove(localPos, 0.1f).SetEase(Ease.OutSine));
 
+            Debug.Log(_impulseSource);
             _impulseSource.GenerateImpulse(0.2f);
         }
 
