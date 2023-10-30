@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ using UnityEngine.InputSystem;
 public class TestLoader : MonoBehaviour
 {
     [SerializeField] private AssetReference _levelRef;
+    private List<GameObject> _list = new();
 
     private void Update()
     {
@@ -14,18 +16,33 @@ public class TestLoader : MonoBehaviour
         {
             LoadLevel();
         }
+
+        if (Keyboard.current.wKey.wasPressedThisFrame) 
+        {
+            DestroyAsset();
+        }
+    }
+
+    private void DestroyAsset()
+    {
+        foreach(var level in _list)
+        {
+            Destroy(level);
+            //_levelRef.ReleaseInstance(level);       // 안전장치가 있음. 
+        }
+        _levelRef.ReleaseAsset();
+        _list.Clear();
     }
 
     private async void LoadLevel()
     {
         if (!_levelRef.IsValid())
         {
-            GameObject levelPrefab = await _levelRef.LoadAssetAsync<GameObject>().Task;
-            Instantiate(levelPrefab, Vector3.zero, Quaternion.identity);
+            await _levelRef.LoadAssetAsync<GameObject>().Task;
         }
-        else
-        {
-            Instantiate(_levelRef.Asset, Vector3.zero, Quaternion.identity);
-        }
+
+        //_levelRef.InstantiateAsync();     // 안전하게 생성
+        var obj = Instantiate(_levelRef.Asset, Vector3.zero, Quaternion.identity) as GameObject;
+        _list.Add(obj);
     }
 }

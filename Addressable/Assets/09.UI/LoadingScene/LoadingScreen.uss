@@ -1,0 +1,21 @@
+.container {
+    align-items: center;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.font {
+    -unity-font: url('project://database/Assets/SKYBORI.ttf?fileID=12800000&guid=ebdc9c29685c63344bf75b75fd4f5671&type=3#SKYBORI');
+    -unity-font-definition: initial;
+    font-size: 40px;
+    color: rgb(255, 255, 255);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgba(31, 31, 31, 0.75);
+}
+
+.loading-complete {
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
