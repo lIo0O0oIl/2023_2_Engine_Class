@@ -16,6 +16,15 @@ public class PlayerMoveState : PlayerState
     public override void UpdateState()
     {
         base.UpdateState();
+
+       float xInput = _player.PlayerInput.XInput;
+
+        _player.SetVelocity(xInput * _player.moveSpeed, _rigidbody.velocity.y);
+
+        if (Mathf.Abs(xInput) <= 0.05f)
+        {
+            _stateMachine.ChangeState(PlayerStateEnum.Idle);
+        }
     }
 
     public override void Exit()

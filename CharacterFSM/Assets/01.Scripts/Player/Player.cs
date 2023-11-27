@@ -8,12 +8,15 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [Header("Setting values")]
-    public float moveSpeec = 12f;
+    public float moveSpeed = 12f;
     public float jumpForce = 12f;
     public float dashDuration = 0.4f;
     public float dashSpeed = 20f;
 
     public PlayerStateMachine StateMachine { get; private set; }
+
+    [SerializeField] private InputReader InputReader;
+    public InputReader PlayerInput => InputReader;
 
     #region 컴포넌트 영역
     public Animator AnimatorCompo { get; private set; }
@@ -43,4 +46,75 @@ public class Player : MonoBehaviour
             StateMachine.AddState(state, newState);
         }
     }
+
+    private void OnEnable()
+    {
+        PlayerInput.DashEvent += HandleDashInput;
+    }
+
+    private void OnDisable()
+    {
+        PlayerInput.DashEvent -= HandleDashInput;
+    }
+
+    #region 키입력 핸들러들
+    private void HandleDashInput()
+    {
+        // 스킬 시스템 구현시에 쿨타임 체크해서 해당 스킬 사용가능할 때 사용하도록
+        StateMachine.ChangeState(PlayerStateEnum.Dash);
+    }
+    #endregion
+
+    private void Start()
+    {
+        StateMachine.Initialize(PlayerStateEnum.Idle, this);
+    }
+
+    protected void Update()
+    {
+        StateMachine.CurrentState.UpdateState();
+    }
+
+    #region 속도 제어
+    public void SetVelocity(float x, float y, bool doNotFlip = false)
+    {
+        // 넉백상태일 경우는 안해줌
+        RigidbodyCompo.velocity = new Vector2(x, y);
+        if (!doNotFlip)
+        {
+            FlipController(x);
+        }
+    }
+
+    public void StopImmediately(bool withYAxis)
+    {
+        if (withYAxis)
+        {
+            RigidbodyCompo.velocity = Vector2.zero;
+        }
+        else
+        {
+            RigidbodyCompo.velocity = new Vector2(0, RigidbodyCompo.velocity.y);
+        }
+    }
+    #endregion
+
+    #region 플립 제어
+    public void FlipController(float x)
+    {
+        bool goToRight = x > 0 && !_facingRight;
+        bool goToLeft = x < 0 && _facingRight;
+        if (goToRight || goToLeft)
+        {
+            Flip();
+        }
+    }
+
+    public void Flip()
+    {
+        FacingDirection = FacingDirection * -1;        // 반전
+        _facingRight = !_facingRight;
+        transform.Rotate(0, 180, 0);
+    }
+    #endregion
 }

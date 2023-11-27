@@ -1882,7 +1882,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_69
+      name: dash_0
       rect:
         serializedVersion: 2
         x: 207
@@ -1903,7 +1903,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_70
+      name: dash_1
       rect:
         serializedVersion: 2
         x: 276
@@ -1924,7 +1924,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_71
+      name: dash_2
       rect:
         serializedVersion: 2
         x: 345
@@ -1945,7 +1945,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_72
+      name: dash_3
       rect:
         serializedVersion: 2
         x: 0
@@ -2577,10 +2577,6 @@ TextureImporter:
       Warrior_Sheet-Effect_66: -1003838945947052602
       Warrior_Sheet-Effect_67: 1786230212584650817
       Warrior_Sheet-Effect_68: 2896272659956946786
-      Warrior_Sheet-Effect_69: 2127461698910248042
-      Warrior_Sheet-Effect_70: 8874842850510428824
-      Warrior_Sheet-Effect_71: -1175057978942713942
-      Warrior_Sheet-Effect_72: 8396084745013482390
       Warrior_Sheet-Effect_73: -5219189033981844993
       Warrior_Sheet-Effect_74: 8048201136183370311
       Warrior_Sheet-Effect_75: -5008098951225157325
@@ -2607,6 +2603,10 @@ TextureImporter:
       Warrior_Sheet-Effect_96: -2493374651010981141
       Warrior_Sheet-Effect_97: -7685447711378399537
       Warrior_Sheet-Effect_98: 787512443710130017
+      dash_0: 2127461698910248042
+      dash_1: 8874842850510428824
+      dash_2: -1175057978942713942
+      dash_3: 8396084745013482390
       idle_0: -3318188226485093758
       idle_1: -1938354968663525734
       idle_2: -4486162353907066099

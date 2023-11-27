@@ -4,7 +4,8 @@ using UnityEngine;
 public enum PlayerStateEnum
 {
     Idle,
-    Move
+    Move,
+    Dash
 }
 
 public class PlayerStateMachine
