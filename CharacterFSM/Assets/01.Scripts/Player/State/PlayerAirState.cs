@@ -20,7 +20,12 @@ public class PlayerAirState : PlayerState
 
         if (Mathf.Abs(xInput) > 0.05f)
         {
-            _player.SetVelocity(_player.moveSpeed * 0.8f * xInput, _player.jumpForce);      // 捞芭 构看爹?奴老车叼
+            _player.SetVelocity(_player.moveSpeed * 0.8f * xInput, _rigidbody.velocity.y); 
+        }
+
+        if (_player.IsWallDetected())
+        {
+            _stateMachine.ChangeState(PlayerStateEnum.WallSlide);
         }
     }
 
