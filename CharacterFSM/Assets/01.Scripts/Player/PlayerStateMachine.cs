@@ -5,7 +5,9 @@ public enum PlayerStateEnum
 {
     Idle,
     Move,
-    Dash
+    Dash,
+    Jump,
+    Fall
 }
 
 public class PlayerStateMachine

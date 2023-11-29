@@ -1294,7 +1294,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_41
+      name: jump_0
       rect:
         serializedVersion: 2
         x: 345
@@ -1315,7 +1315,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_42
+      name: jump_1
       rect:
         serializedVersion: 2
         x: 0
@@ -1336,7 +1336,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_43
+      name: jump_2
       rect:
         serializedVersion: 2
         x: 69
@@ -1399,7 +1399,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_46
+      name: fall_0
       rect:
         serializedVersion: 2
         x: 276
@@ -1420,7 +1420,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_47
+      name: fall_1
       rect:
         serializedVersion: 2
         x: 345
@@ -1441,7 +1441,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_48
+      name: fall_2
       rect:
         serializedVersion: 2
         x: 0
@@ -2549,14 +2549,8 @@ TextureImporter:
       Warrior_Sheet-Effect_38: 7910466545735013580
       Warrior_Sheet-Effect_39: -4360246032673291897
       Warrior_Sheet-Effect_40: -6130774247032492815
-      Warrior_Sheet-Effect_41: -7784280053648753441
-      Warrior_Sheet-Effect_42: -8105224185696963899
-      Warrior_Sheet-Effect_43: 565109345717033213
       Warrior_Sheet-Effect_44: 3578844115799939244
       Warrior_Sheet-Effect_45: -8346973252730123848
-      Warrior_Sheet-Effect_46: 3675700599212663255
-      Warrior_Sheet-Effect_47: -6199907869733816761
-      Warrior_Sheet-Effect_48: -9068822172998705990
       Warrior_Sheet-Effect_49: 4778756267546337206
       Warrior_Sheet-Effect_50: -5417263232604538632
       Warrior_Sheet-Effect_51: -8179423753346160949
@@ -2607,12 +2601,18 @@ TextureImporter:
       dash_1: 8874842850510428824
       dash_2: -1175057978942713942
       dash_3: 8396084745013482390
+      fall_0: 3675700599212663255
+      fall_1: -6199907869733816761
+      fall_2: -9068822172998705990
       idle_0: -3318188226485093758
       idle_1: -1938354968663525734
       idle_2: -4486162353907066099
       idle_3: -7105675749794256429
       idle_4: 932576740597027765
       idle_5: 8053934741035486310
+      jump_0: -7784280053648753441
+      jump_1: -8105224185696963899
+      jump_2: 565109345717033213
       move_0: 4312510042007804440
       move_1: -3637831218265681369
       move_2: 7890055846987212836

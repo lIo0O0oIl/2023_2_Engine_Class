@@ -13,6 +13,13 @@ public class Player : MonoBehaviour
     public float dashDuration = 0.4f;
     public float dashSpeed = 20f;
 
+    [Header("Collistion info")]
+    [SerializeField] protected Transform _groundChecker;
+    [SerializeField] protected float _groundCheckDistance;
+    [SerializeField] protected LayerMask _wathIsGround;
+    [SerializeField] protected Transform _wallChecker;
+    [SerializeField] protected float _wallCheckDistance;
+
     public PlayerStateMachine StateMachine { get; private set; }
 
     [SerializeField] private InputReader InputReader;
@@ -117,4 +124,24 @@ public class Player : MonoBehaviour
         transform.Rotate(0, 180, 0);
     }
     #endregion
+
+    #region 충돌 체크 부분
+    public virtual bool IsGroundDetected() =>
+        Physics2D.Raycast(_groundChecker.position, Vector2.down, _groundCheckDistance, _wathIsGround);
+
+    public virtual bool IsWallDetected() =>
+       Physics2D.Raycast(_wallChecker.position, Vector2.right * FacingDirection, _wallCheckDistance, _wathIsGround);
+    #endregion
+
+#if UNITY_EDITOR
+    protected virtual void OnDrawGizmos()
+    {
+        if (_groundChecker != null)
+            Gizmos.DrawLine(_groundChecker.position,
+                _groundChecker.position + new Vector3(0, -_groundCheckDistance, 0));
+        if (_wallChecker != null)
+            Gizmos.DrawLine(_wallChecker.position,
+                _wallChecker.position + new Vector3(_wallCheckDistance, 0, 0));
+    }
+#endif
 }

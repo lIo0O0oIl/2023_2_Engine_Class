@@ -2,16 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerIdleState : PlayerGroundState
+public class PlayerAirState : PlayerState
 {
-    public PlayerIdleState(Player player, PlayerStateMachine stateMachine, string animationBoolName) : base(player, stateMachine, animationBoolName)
+    public PlayerAirState(Player player, PlayerStateMachine stateMachine, string animationBoolName) : base(player, stateMachine, animationBoolName)
     {
     }
 
     public override void Enter()
     {
         base.Enter();
-        _player.StopImmediately(false);
     }
 
     public override void UpdateState()
@@ -19,9 +18,9 @@ public class PlayerIdleState : PlayerGroundState
         base.UpdateState();
         float xInput = _player.PlayerInput.XInput;
 
-        if (Mathf.Abs(xInput) >= 0.05f)
+        if (Mathf.Abs(xInput) > 0.05f)
         {
-            _stateMachine.ChangeState(PlayerStateEnum.Move);
+            _player.SetVelocity(_player.moveSpeed * 0.8f * xInput, _player.jumpForce);      // 捞芭 构看爹?奴老车叼
         }
     }
 
@@ -29,5 +28,4 @@ public class PlayerIdleState : PlayerGroundState
     {
         base.Exit();
     }
-
 }
