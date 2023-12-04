@@ -13,7 +13,9 @@ public abstract class PlayerGroundState : PlayerState
     {
         base.Enter();
         _player.PlayerInput.JumpEvent += HandleJumpInput;
+        _player.PlayerInput.AttackEvent += HandleAttackInput;
     }
+
 
     public override void UpdateState()
     {
@@ -24,6 +26,7 @@ public abstract class PlayerGroundState : PlayerState
     {
         base.Exit();
         _player.PlayerInput.JumpEvent -= HandleJumpInput;
+        _player.PlayerInput.AttackEvent -= HandleAttackInput;
     }
 
     #region 입력 처리 핸들러
@@ -32,6 +35,14 @@ public abstract class PlayerGroundState : PlayerState
         if (_player.IsGroundDetected())     // 바닥에 닿아있을 때
         {
             _stateMachine.ChangeState(PlayerStateEnum.Jump);
+        }
+    }
+
+    private void HandleAttackInput()
+    {
+        if (_player.IsGroundDetected())
+        {
+            _stateMachine.ChangeState(PlayerStateEnum.PrimaryAttack);
         }
     }
     #endregion

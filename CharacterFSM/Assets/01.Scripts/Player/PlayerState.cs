@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,8 +10,9 @@ public class PlayerState
     protected Rigidbody2D _rigidbody;       // 편의성을 위해서 참조
 
     protected int _animBoolHash;
-    // 나중에 쓸거양
     protected readonly int _yVelocityHash = Animator.StringToHash("y_velocity");
+
+    protected bool _triggerCalled;
 
     public PlayerState(Player player, PlayerStateMachine stateMachine, string animationBoolName)
     {
@@ -22,6 +24,7 @@ public class PlayerState
 
     public virtual void Enter()
     {
+        _triggerCalled = false;
         _player.AnimatorCompo.SetBool(_animBoolHash, true);
     }
 
@@ -33,5 +36,10 @@ public class PlayerState
     public virtual void Exit() 
     {
         _player.AnimatorCompo.SetBool(_animBoolHash, false);
+    }
+
+    public void AnimationFinishTrigger()
+    {
+        _triggerCalled = true;
     }
 }

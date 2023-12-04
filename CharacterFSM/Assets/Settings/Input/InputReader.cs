@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class InputReader : ScriptableObject, Controls.IPlayerActions
 {
     public event Action JumpEvent;
+    public event Action AttackEvent;
     public event Action DashEvent;
 
     public float XInput { get; private set; }
@@ -49,6 +50,14 @@ public class InputReader : ScriptableObject, Controls.IPlayerActions
         if (context.performed)
         {
             DashEvent?.Invoke();
+        }
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            AttackEvent?.Invoke();
         }
     }
 }

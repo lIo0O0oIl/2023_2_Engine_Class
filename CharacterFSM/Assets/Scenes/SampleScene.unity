@@ -514,6 +514,7 @@ GameObject:
   - component: {fileID: 665076025}
   - component: {fileID: 665076027}
   - component: {fileID: 665076026}
+  - component: {fileID: 665076028}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -609,6 +610,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &665076028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665076024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5021425f936cf3d46a3f69118ea41fd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1139936671
 GameObject:
   m_ObjectHideFlags: 0
@@ -763,6 +776,12 @@ MonoBehaviour:
   _wallChecker: {fileID: 1139936672}
   _wallCheckDistance: 0.15
   InputReader: {fileID: 11400000, guid: 36b32ca32edf80344a13801fd6eeef1c, type: 2}
+  <Stat>k__BackingField: {fileID: 11400000, guid: 9d0a6d9b58691c64c9926b58a519633b, type: 2}
+  attackSpeed: 1
+  attackMovement:
+  - {x: 3, y: 1.5}
+  - {x: 1, y: 2.5}
+  - {x: 4, y: 2}
 --- !u!1 &2074837976
 GameObject:
   m_ObjectHideFlags: 0

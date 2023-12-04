@@ -9,7 +9,8 @@ public enum PlayerStateEnum
     Jump,
     Fall,
     WallSlide,
-    WallJump
+    WallJump,
+    PrimaryAttack
 }
 
 public class PlayerStateMachine
