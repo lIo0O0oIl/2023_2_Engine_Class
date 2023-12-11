@@ -22,6 +22,8 @@ public class ItemSlotUI : MonoBehaviour, IPointerDownHandler
         {
             _itemImage.sprite = item.itemData.itemIcon;
 
+            if (_itemAmountText == null) return;
+
             if (item.stackSize > 1)
             {
                 _itemAmountText.text = item.stackSize.ToString();
@@ -37,23 +39,27 @@ public class ItemSlotUI : MonoBehaviour, IPointerDownHandler
     {
         item = null;
         _itemImage.sprite = _emptySprite;
+
+        if (_itemAmountText == null) return;
         _itemAmountText.text = string.Empty;        // 이 엠티 쓰는 이유는 "" 이거도 할당이 힙에? 들어가서
     }
 
     // 클릭했을 때
-    public void OnPointerDown(PointerEventData eventData)
+    public virtual void OnPointerDown(PointerEventData eventData)
     {
         // 예외처리는 확실하게 해라.
         if (item == null) return;
 
+        if (item.itemData.itemType == ItemType.Equipment)
+        {
+            // 장비해제 또는 장착
+            Inventory.Instance.EquipItem(item.itemData);
+            return;
+        }
+
         if (!Keyboard.current.ctrlKey.IsPressed())
         {
             return;     // 컨트롤 키를 누른 상태였어야 함
-        }
-
-        if (item.itemData.itemType == ItemType.Equipment)
-        {
-            // 장비해제
         }
 
         Inventory.Instance.RemoveItem(item.itemData);

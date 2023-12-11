@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Inventory : MonoSingleton<Inventory>
@@ -11,12 +12,17 @@ public class Inventory : MonoSingleton<Inventory>
     public List<InventoryItem> inven;   // 장비 창고
     public Dictionary<ItemDataSO, InventoryItem> invenDictionary;
 
+    public List<InventoryItem> equipments;
+    public Dictionary<ItemDataEquipmentSO, InventoryItem> equipmentDictionary;
+
     [Header("Inventory UI")]
     [SerializeField] private Transform _stashSlotParent;
     [SerializeField] private Transform _invenSlotParent;
+    [SerializeField] private Transform _equipmentSlotParent;
 
     private ItemSlotUI[] _stashItemSlots;
     private ItemSlotUI[] _invenItemSlots;
+    private EquipmentSlotUI[] _equipmentSlots;
 
     private void Awake()
     {
@@ -27,6 +33,10 @@ public class Inventory : MonoSingleton<Inventory>
         inven = new List<InventoryItem>();
         invenDictionary = new Dictionary<ItemDataSO, InventoryItem>();
         _invenItemSlots = _invenSlotParent.GetComponentsInChildren<ItemSlotUI>();
+
+        equipments = new List<InventoryItem>();
+        equipmentDictionary = new Dictionary<ItemDataEquipmentSO, InventoryItem>();
+        _equipmentSlots = _equipmentSlotParent.GetComponentsInChildren<EquipmentSlotUI>();
     }
 
     private void Start()
@@ -36,6 +46,24 @@ public class Inventory : MonoSingleton<Inventory>
 
     public void UpdateSlotUI()
     {
+        #region equipment window cleanup
+        for (int i = 0; i < _equipmentSlots.Length; ++i)
+        {
+            EquipmentSlotUI currentSlot = _equipmentSlots[i];
+            // 해당 슬롯에 장착할 장비를 내가 List 에 보유하고 있는지를 찾는것.
+            ItemDataEquipmentSO slotEquipment = equipmentDictionary.Keys.ToList().Find(x => x.equipmentType == currentSlot.slotType);
+
+            if (slotEquipment != null)
+            {
+                currentSlot.UpdateSlot(equipmentDictionary[slotEquipment]);
+            }
+            else
+            {
+                currentSlot.CleanUpSlot();
+            }
+        }
+        #endregion
+
         #region clean up slots
         for (int i = 0; i < _stashItemSlots.Length; ++i)
         {
@@ -77,18 +105,32 @@ public class Inventory : MonoSingleton<Inventory>
 
     public void RemoveItem(ItemDataSO item, int count = 1)
     {
-        // 잡템창고에 해당 item 이 존재하는지 검사해서 count 갯수보다 남아있는 양이 작거나 같다면 아예 아이템을 삭제하고 그렇지 않다면 staskCount 에서 빼고 count 만큰 빼주고
-
-        if (stashDictionary.TryGetValue(item, out InventoryItem inventoryItem))
+        // 장비 창고에 해당 item 이 존재하는지 검사해서 count 갯수보다 남아있는 양이 작거나 같다면 아예 아이템을 삭제하고 그렇지 않다면 staskCount 에서 빼고 count 만큰 빼주고
+        if (invenDictionary.TryGetValue(item, out InventoryItem inventoryItem))
         {
             if (inventoryItem.stackSize <= count)
             {
-                stash.Remove(inventoryItem);
-                stashDictionary.Remove(item);
+                inven.Remove(inventoryItem);
+                invenDictionary.Remove(item);
             }
             else
             {
                 inventoryItem.RemoveStack(count);
+            }
+        }
+
+        // 잡템창고에 해당 item 이 존재하는지 검사해서 count 갯수보다 남아있는 양이 작거나 같다면 아예 아이템을 삭제하고 그렇지 않다면 staskCount 에서 빼고 count 만큰 빼주고
+
+        else if (stashDictionary.TryGetValue(item, out InventoryItem stashItem))
+        {
+            if (stashItem.stackSize <= count)
+            {
+                stash.Remove(stashItem);
+                stashDictionary.Remove(item);
+            }
+            else
+            {
+                stashItem.RemoveStack(count);
             }
         }
 
@@ -122,6 +164,71 @@ public class Inventory : MonoSingleton<Inventory>
             InventoryItem newInventoryItem = new InventoryItem(item);
             stash.Add(newInventoryItem);
             stashDictionary.Add(item, newInventoryItem);
+        }
+    }
+
+    public void EquipItem(ItemDataSO item)
+    {
+        ItemDataEquipmentSO newEquipItem = item as ItemDataEquipmentSO;
+
+        if (newEquipItem == null)
+        {
+            Debug.Log("can not equip!");
+            return;
+        }
+
+        InventoryItem newItem = new InventoryItem(newEquipItem);
+
+        // 해당 칸에 다른 장비가 장착되어 있는지를 체크해야하고
+        ItemDataEquipmentSO oldEquipment = GetEquipmentByType(newEquipItem.equipmentType);
+        // 여기다가 그 로직...???
+
+        if (oldEquipment != null)
+        {
+            UnEquipItem(oldEquipment);
+        }
+        // 새로 아이템 적용함.
+
+        equipments.Add(newItem);
+        equipmentDictionary.Add(newEquipItem, newItem);
+        newEquipItem.AddModifiers();        // 해당 장비의 능력치를 플레이어의 스텟에 반영
+
+        RemoveItem(item);
+        UpdateSlotUI();
+    }
+
+    private ItemDataEquipmentSO GetEquipmentByType(EquipmentType type)
+    {
+        ItemDataEquipmentSO equipItem = null;
+
+        foreach (var pair in equipmentDictionary)
+        {
+            if (pair.Key.equipmentType == type)
+            {
+                equipItem = pair.Key;
+                break;
+            }
+        }
+        return equipItem;
+    }
+
+    public void UnEquipItem(ItemDataEquipmentSO oldEquipment)
+    {
+        // 널체크
+        if (oldEquipment == null) return;
+        // equipmentDictionary 에서 이 녀석이 존재하는지 체크하고
+        // 존재하면 equipment 에서 삭제하고
+        // 딕셔너리에서도 삭제하고
+
+        if (equipmentDictionary.TryGetValue(oldEquipment, out InventoryItem invenItem))
+        {
+            equipments.Remove(invenItem);
+            equipmentDictionary.Remove(oldEquipment);
+
+            // RemoveModifiers
+            oldEquipment.RemoveModifiers();
+            // Additem 으로 인벤토리로 돌려보내자
+            AddItem(oldEquipment);
         }
     }
 }

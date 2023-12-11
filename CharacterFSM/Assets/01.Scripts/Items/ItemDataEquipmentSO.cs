@@ -88,5 +88,15 @@ public class ItemDataEquipmentSO : ItemDataSO
     public void RemoveModifiers()
     {
         // 모디파이어 제거
+        PlayerStat playerStat = GameManager.Instance.Player.Stat;
+
+        if (playerStat == null) return;
+
+        foreach (var pair in _fieldInfoDictionary)
+        {
+            Stat stat = playerStat.GetStatByType(pair.Key);
+            int modifyValue = (int)pair.Value.GetValue(this);
+            stat.RemoveModifier(modifyValue);
+        }
     }
 }
