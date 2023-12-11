@@ -197,7 +197,7 @@ public class Inventory : MonoSingleton<Inventory>
         UpdateSlotUI();
     }
 
-    private ItemDataEquipmentSO GetEquipmentByType(EquipmentType type)
+    public ItemDataEquipmentSO GetEquipmentByType(EquipmentType type)
     {
         ItemDataEquipmentSO equipItem = null;
 

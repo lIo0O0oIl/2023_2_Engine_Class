@@ -91,8 +91,12 @@ public class Player : MonoBehaviour
     #region 키입력 핸들러들
     private void HandleDashInput()
     {
-        // 스킬 시스템 구현시에 쿨타임 체크해서 해당 스킬 사용가능할 때 사용하도록
-        StateMachine.ChangeState(PlayerStateEnum.Dash);
+        DashSkill skill = SkillManager.Instance.GetSkill<DashSkill>();
+
+        if (skill != null &&  skill.AttemptUseSkill()){
+            // 스킬 시스템 구현시에 쿨타임 체크해서 해당 스킬 사용가능할 때 사용하도록
+            StateMachine.ChangeState(PlayerStateEnum.Dash);
+        }
     }
     #endregion
 
