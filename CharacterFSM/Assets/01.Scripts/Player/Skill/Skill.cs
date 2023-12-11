@@ -9,7 +9,7 @@ public abstract class Skill : MonoBehaviour
 {
     public bool skillEnabled;       // 이 스킬이 활성화되었는가? 이 스킬 얻었니?
 
-    //[SerializeField] protected LayerMask _whatIsEnemy;
+    [SerializeField] protected LayerMask _whatIsEnemy;
     [SerializeField] protected float _cooldown;
     protected float _cooldownTimer;
     protected Player _player;
@@ -53,5 +53,25 @@ public abstract class Skill : MonoBehaviour
     {
         // 나 스킬썼음. 피드백 해줘
         SkillManager.Instance.UseSkillFeedback(_skillType);
+    }
+
+    public virtual Transform FindClosestEnemy(Transform checkTrm, float radius)
+    {
+        Transform target = null;
+
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(checkTrm.position, radius, _whatIsEnemy);
+
+        float closestDistance = Mathf.Infinity;
+
+        foreach (Collider2D collider in colliders)
+        {
+            float distance = Vector2.Distance(checkTrm.position, collider.transform.position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                target = collider.transform;
+            }
+        }
+        return target;
     }
 }
