@@ -68,11 +68,13 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         PlayerInput.DashEvent += HandleDashInput;
+        PlayerInput.CrystalSkillEvent += HandleCrystalSkillInput;
     }
 
     private void OnDisable()
     {
         PlayerInput.DashEvent -= HandleDashInput;
+        PlayerInput.CrystalSkillEvent -= HandleCrystalSkillInput;
     }
 
     #region 딜레이 코루틴 코드
@@ -97,6 +99,11 @@ public class Player : MonoBehaviour
             // 스킬 시스템 구현시에 쿨타임 체크해서 해당 스킬 사용가능할 때 사용하도록
             StateMachine.ChangeState(PlayerStateEnum.Dash);
         }
+    }
+
+    private void HandleCrystalSkillInput()
+    {
+        SkillManager.Instance.GetSkill<CrystalSkill>()?.AttemptUseSkill();
     }
     #endregion
 

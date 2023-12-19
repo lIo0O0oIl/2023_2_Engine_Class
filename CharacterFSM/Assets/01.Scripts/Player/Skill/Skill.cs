@@ -16,11 +16,15 @@ public abstract class Skill : MonoBehaviour
 
     [SerializeField] protected PlayerSkill _skillType;
 
+    [SerializeField] protected int _collisionDetectCount;      // 몇 개까지 충돌검사할거냐 
+    protected Collider2D[] _collisionColliders;
+
     public event CooldownNotifier OnCooldown;   // 쿨타임이 돌아갈 때 발행되는 메세지
 
     protected virtual void Start()
     {
         _player = GameManager.Instance.Player;
+        _collisionColliders = new Collider2D[_collisionDetectCount];            // 갯수만큼 미리 만들어서
     }
 
     protected virtual void Update()
@@ -59,12 +63,16 @@ public abstract class Skill : MonoBehaviour
     {
         Transform target = null;
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(checkTrm.position, radius, _whatIsEnemy);
+        int cnt = Physics2D.OverlapCircle(checkTrm.position, radius, new ContactFilter2D { layerMask = _whatIsEnemy, useLayerMask = true }, _collisionColliders);       // 오버랩써클 쓰는 방법
+
+        //Collider2D[] colliders = Physics2D.OverlapCircleAll(checkTrm.position, radius, _whatIsEnemy);
 
         float closestDistance = Mathf.Infinity;
 
-        foreach (Collider2D collider in colliders)
+        //foreach (Collider2D collider in colliders)
+        for (int i = 0; i < cnt; ++i)
         {
+            Collider2D collider = _collisionColliders[i];
             float distance = Vector2.Distance(checkTrm.position, collider.transform.position);
             if (distance < closestDistance)
             {

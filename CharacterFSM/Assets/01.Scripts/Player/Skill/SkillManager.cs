@@ -7,7 +7,7 @@ public enum PlayerSkill
 {
     Dash = 1,
     Clone = 2,
-    //Crystal = 3*/
+    Crystal = 3
 }
 
 public class SkillManager : MonoSingleton<SkillManager>
