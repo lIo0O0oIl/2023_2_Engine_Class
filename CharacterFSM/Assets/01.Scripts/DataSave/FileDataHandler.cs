@@ -2,6 +2,7 @@
 
 using System;
 using System.IO;
+using System.Text;
 using UnityEngine;
 
 public class FileDataHandler
@@ -10,12 +11,18 @@ public class FileDataHandler
     private string _filename = "";
 
     private bool _isEncrypt;
+    private bool _isBase64;
 
-    public FileDataHandler(string directoryPath, string filename, bool isEncrypt)
+    private CryptoModule _cryptoModule;
+
+    public FileDataHandler(string directoryPath, string filename, bool isEncrypt, bool isBase64 = false)
     {
         _directoryPath = directoryPath;
         _filename = filename;
         _isEncrypt = isEncrypt;
+        _isBase64 = isBase64;
+
+        _cryptoModule = new CryptoModule();
     }
 
     public void Save(GameData gameData)
@@ -24,9 +31,20 @@ public class FileDataHandler
         try
         {
             Directory.CreateDirectory(_directoryPath);
-            string dataToStore = JsonUtility.ToJson(gameData, true);        // 인간이 보기 좋게 만들어준다.
+            string dataToStore = JsonUtility.ToJson(gameData, true);        // 인간이 보기 좋게 만들어준다. 암호화
 
-            using(FileStream writeStream = new FileStream(fullPath, FileMode.Create))
+            if (_isEncrypt)
+            {
+                dataToStore = _cryptoModule.AESEncrypt256(dataToStore);
+               // dataToStore = EncryptDecryptData(dataToStore);
+            }           // 여기에다가도 뭘 해줬는데
+
+         /*   if (_isBase64)
+            {
+                dataToStore = Base64Process(dataToStore, false);
+            }*/
+
+            using (FileStream writeStream = new FileStream(fullPath, FileMode.Create))
             {
                 using (StreamWriter writer = new StreamWriter(writeStream))
                 {
@@ -58,6 +76,16 @@ public class FileDataHandler
                     }
                 }
 
+                /*if (_isBase64){
+                    dataToLoad = Base64Process(dataToLoad, false);
+                }*/
+
+                if (_isEncrypt)
+                {
+                    dataToLoad = _cryptoModule.Decrypt(dataToLoad);
+                    //dataToLoad = EncryptDecryptData(dataToLoad);
+                }
+
                 loadedData = JsonUtility.FromJson<GameData>(dataToLoad);
             }
             catch (Exception ex)
@@ -83,6 +111,34 @@ public class FileDataHandler
             {
                 Debug.LogError($"Error on trying to delete file {fullPath}");
             }
+        }
+    }
+
+    private string _codeWord = "ggmisgreatallthetime";
+    private string EncryptDecryptData(string data)      // 암호화, 블럭 아?
+    {
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < data.Length; i++)
+        {
+            builder.Append((char)(data[i] ^ _codeWord[i % _codeWord.Length]));
+        }
+
+        return builder.ToString();
+    }
+
+    private string Base64Process(string data, bool encoding)
+    {
+        if (encoding)
+        {
+            byte[] dataByArr = Encoding.UTF8.GetBytes(data);
+            return Convert.ToBase64String(dataByArr);
+            // 바이트를 싹 끄집어와서 6비트로 쪼갠디에 스트링으로 조립
+        }
+        else
+        {
+            byte[] dataByArr = Convert.FromBase64String(data);
+            return Encoding.UTF8.GetString(dataByArr);
         }
     }
 }

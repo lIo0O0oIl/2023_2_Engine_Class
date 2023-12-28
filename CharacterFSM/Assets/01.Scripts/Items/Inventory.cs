@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Inventory : MonoSingleton<Inventory>
+public class Inventory : MonoSingleton<Inventory>, ISaveManager
 {
+    [SerializeField] private ItemDatabaseSO _itemDB;        // 저장공간
+
     public List<InventoryItem> stash;       // 잡템창고
     public Dictionary<ItemDataSO, InventoryItem> stashDictionary;       // 중복값 없애려고
 
@@ -229,6 +231,37 @@ public class Inventory : MonoSingleton<Inventory>
             oldEquipment.RemoveModifiers();
             // Additem 으로 인벤토리로 돌려보내자
             AddItem(oldEquipment);
+        }
+    }
+
+    public void LoadData(GameData data)
+    {
+        List<ItemDataSO> itemDB = _itemDB.itemList;
+
+        foreach(var pair in data.inventory)
+        {
+            ItemDataSO item = itemDB.Find(x => x.itemID == pair.Key);
+            if (item != null)
+            {
+                for (int i = 0; i < pair.Value; ++i)
+                {
+                    AddItem(item);
+                }
+            }
+        }
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.inventory.Clear();
+        foreach(var pair in stashDictionary)
+        {
+            data.inventory.Add(pair.Key.itemID, pair.Value.stackSize);
+        }
+
+        foreach (var pair in invenDictionary)
+        {
+            data.inventory.Add(pair.Key.itemID, pair.Value.stackSize);
         }
     }
 }

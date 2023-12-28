@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using UnityEditor;
 using UnityEngine;
 
 public enum ItemType
@@ -15,8 +16,17 @@ public class ItemDataSO : ScriptableObject
     public ItemType itemType;
     public string itemName;
     public Sprite itemIcon;
+    public string itemID;
 
     protected StringBuilder _stringBuilder = new StringBuilder();
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        string path = AssetDatabase.GetAssetPath(this);
+        itemID = AssetDatabase.AssetPathToGUID(path);
+    }
+#endif
 
     public virtual string GetDescription()
     {

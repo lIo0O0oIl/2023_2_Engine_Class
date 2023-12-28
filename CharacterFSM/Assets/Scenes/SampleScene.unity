@@ -2029,6 +2029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c32746080760b9498c68dfb41bed79d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _itemDB: {fileID: 11400000, guid: 3884def672d51a34b91746984f30de34, type: 2}
   stash: []
   inven: []
   equipments: []
@@ -4014,6 +4015,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   filename: data.ggm
   _isEncrypt: 0
+  _isBase64: 0
 --- !u!114 &1794218586
 MonoBehaviour:
   m_ObjectHideFlags: 0

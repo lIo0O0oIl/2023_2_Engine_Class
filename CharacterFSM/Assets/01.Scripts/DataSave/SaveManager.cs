@@ -12,6 +12,7 @@ public class SaveManager : MonoSingleton<SaveManager>
     private FileDataHandler _fileDataHandler;
 
     [SerializeField] private bool _isEncrypt;
+    [SerializeField] private bool _isBase64;
 
    // [SerializeField] private SerializableDictionary<string, int> testDictionary;
 
@@ -64,6 +65,7 @@ public class SaveManager : MonoSingleton<SaveManager>
     public void DeleteSaveData()
     {
         // ³ªÁß¿¡ ¹¹ ÇØºÁ
+       // _fileDataHandler = new FileDataHandler(Application.tlqkf?)
     }
 
     private void OnApplicationQuit()
