@@ -8,6 +8,8 @@ using UnityEngine.InputSystem;
 // 이걸 리플렉션으로 한꺼번에 불러올 것임.
 public class Player : MonoBehaviour
 {
+    public Action<int> OnFlip;
+
     [Header("Setting values")]
     public float moveSpeed = 12f;
     public float jumpForce = 12f;
@@ -163,6 +165,7 @@ public class Player : MonoBehaviour
         FacingDirection = FacingDirection * -1;        // 반전
         _facingRight = !_facingRight;
         transform.Rotate(0, 180, 0);
+        OnFlip?.Invoke(FacingDirection);
     }
     #endregion
 
