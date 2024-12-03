@@ -6,7 +6,7 @@
 
 
 ## 목표
-- 어드레서블을 배워 프로젝트에 적용한 뒤 빌드하여 테스트합니다.
+- Addressable을 배워 프로젝트에 적용한 뒤 빌드하여 테스트합니다.
 
 - Behavior Tree를 에디터를 활용하여 눈에 보이게 만듭니다.
 
@@ -19,13 +19,21 @@
 <br>
 
 
-## 이미지 및 코드
-- 어드레서블 이미지
+## 사진 및 코드
+- Addressable 사진
+
+
 
 - [Behavior Tree Editor](https://github.com/lIo0O0oIl/2023_2_Engine_Class/tree/main/BTVisual/Assets/BTVisual)
 
 - [플레이어 시야각](https://github.com/lIo0O0oIl/2023_2_Engine_Class/blob/main/FOVStencil/Assets/01.%20Scripts/PlayerFOV.cs)
 
-- 플레이어 FSM 이미지
+- 플레이어 FSM 사진
 
-- 스프다이트리솔버, 타임라인, 리깅 사진
+
+
+- SpriteResolver, Timeline, Rigging 사진
+
+<img src="https://github.com/user-attachments/assets/8a96f224-8457-47a0-895d-8bbe82a7ca4d" width="400" height="200"/>
+// 탐라
+<img src="https://github.com/user-attachments/assets/058b1cd8-64a9-4802-9f2e-4f5058ff2538" width="200" height="200"/>
