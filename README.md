@@ -35,5 +35,5 @@
 - SpriteResolver, Timeline, Rigging 사진
 
 <img src="https://github.com/user-attachments/assets/8a96f224-8457-47a0-895d-8bbe82a7ca4d" width="400" height="200"/>
-// 탐라
+<img src="https://github.com/user-attachments/assets/eda3dca3-de03-4bc6-90e5-353a14818f70" width="400" height="200"/>
 <img src="https://github.com/user-attachments/assets/058b1cd8-64a9-4802-9f2e-4f5058ff2538" width="200" height="200"/>
